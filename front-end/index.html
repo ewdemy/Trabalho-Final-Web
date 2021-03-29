@@ -14,7 +14,7 @@
         <a href="#" class="btn-abrir" id="btn-abrir" onclick="abrirMenu()">&#9776; Menu</a>
         <div class="titulo">
             <img src="./img/logo_transparent.png" alt="Logo SGE">
-            <h2>SGE - Sistema Gerenciador de Estoque</h2>
+            <h1>SGE - Sistema Gerenciador de Estoque</h1>
         </div>
         
     </header>
@@ -37,9 +37,13 @@
                     <label for="produto">Produto:</label>
                     <input type="text" name="produto" id="produto" placeholder="Digite o nome do produto" required>
                 </div>
+                <div>
+                    <input type="hidden" name="qtd-produto" id="qtd-produto" >
+                </div>
                 <div class="input-group">
                     <button id="btn-salvar-estoque" type="submit">Salvar</button>
-                    <button id="btn-atualizar-estoque" type="submit">Atualizar</button>
+                    <button id="btn-atualizar-estoque">Atualizar</button>
+                    <button id="btn-pesquisar-estoque" >Pesquisar</button>
                 </div>
             </form>
 
