@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Estoque</title>
+    <link rel="shortcut icon" href="./img/logo_transparent.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <header>
+        <a href="#" class="btn-abrir" onclick="abrirMenu()">&#9776; Menu</a>
+        <div class="titulo">
+            <img src="./img/logo_transparent.png" alt="Logo SGE">
+            <h2>SGE - Sistema Gerenciador de Estoque</h2>
+        </div>
+        
+    </header>
+    <nav id="menu">
+        <a href="#" onclick="fecharMenu()">&times; Fechar</a>
+        <a href="#" class="item-menu" onclick="abrirConteudo(event,'estoque')" id="item-estoque">Estoque</a>
+        <a href="#" class="item-menu" onclick="abrirConteudo(event,'entrada')">Entrada</a>
+        <a href="#" class="item-menu" onclick="abrirConteudo(event,'saida')">Saída</a>
+    </nav>
+    <main id="container">
+        <div id="estoque" class="conteudo">
+            <h1>Estoque</h1>
+        </div>
+
+        <div id="entrada" class="conteudo">
+            <h1>Entrada</h1>
+        </div>
+
+        <div id="saida" class="conteudo">
+            <h1>Saida</h1>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2021 Eudemir Vieira | Web Developer</p> 
+        <div class="redes-sociais">
+            <a href="https://www.linkedin.com/in/eudemirvieira/" target="_blank" tabindex="1"><img src="./img/linkedin.png" alt="Logo Linkedin"></a>
+            <a href="https://github.com/ewdemy" target="_blank" tabindex="6"><img src="./img/icons8-github-256.png" alt="Logo GitHub"></a>
+            <a href="https://www.instagram.com/ewdemy/" target="_blank" tabindex="3"><img src="./img/instagram.png" alt="Logo Instagram"></a>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
