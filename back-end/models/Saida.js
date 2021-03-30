@@ -2,13 +2,14 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const Saida = new Schema({
-    produtoId: {
-        type: String,
-        required: true
+    produto: {
+        type: Schema.Types.ObjectId,
+        ref: "estoque",
+        require: true
     },
     quantidade: {
         type: Number,
-        required: true
+        require: true
     },
     data: {
         type: Date,

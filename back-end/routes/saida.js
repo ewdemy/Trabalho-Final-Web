@@ -7,7 +7,7 @@ const Estoque = mongoose.model("estoque")
 const Saida = mongoose.model("saidas")
 
 router.get("/", (req, res) => {
-    Saida.find().then((saidas) => {
+    Saida.find().populate("produto").then((saidas) => {
         res.json(saidas)
     }).catch((err) => {
         res.json(err)
@@ -16,11 +16,11 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
     const novaSaida = {
-        produtoId: req.body.produtoId,
+        produto: req.body.produto,
         quantidade: req.body.quantidade
     }
   
-    Estoque.findOne({ _id: req.body.produtoId }).then((estoque) => {
+    Estoque.findOne({ _id: req.body.produto }).then((estoque) => {
         if(!estoque){
             res.status(404).json()
         }
@@ -55,7 +55,7 @@ router.delete("/:id", (req, res) => {
     Saida.findOne({ _id: req.params.id }).then((saida) => {
 
         if(saida){
-            Estoque.findOne({ _id: saida.produtoId}).then((estoque) => {
+            Estoque.findOne({ _id: saida.produto}).then((estoque) => {
                 if(estoque){
 
                     estoque.quantidade += saida.quantidade

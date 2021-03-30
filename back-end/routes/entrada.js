@@ -7,7 +7,8 @@ const Estoque = mongoose.model("estoque")
 const Entrada = mongoose.model("entradas")
 
 router.get("/", (req, res) => {
-    Entrada.find().then((entradas) => {
+    
+    Entrada.find().populate("produto").then((entradas) => {
         res.json(entradas)
     }).catch((err) => {
         res.json(err)
@@ -16,11 +17,11 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
     const novaEntrada = {
-        produtoId: req.body.produtoId,
+        produto: req.body.produto,
         quantidade: req.body.quantidade
     }
   
-    Estoque.findOne({ _id: req.body.produtoId }).then((estoque) => {
+    Estoque.findOne({ _id: req.body.produto }).then((estoque) => {
         if(!estoque){
             res.status(404).json()
         }
@@ -51,7 +52,7 @@ router.delete("/:id", (req, res) => {
     Entrada.findOne({ _id: req.params.id }).then((entrada) => {
 
         if(entrada){
-            Estoque.findOne({ _id: entrada.produtoId}).then((estoque) => {
+            Estoque.findOne({ _id: entrada.produto}).then((estoque) => {
                 if(estoque){
                     if(entrada.quantidade > estoque.quantidade){
                         res.status(409).json({message: "Não é possível excluir - estoque insuficiente"})

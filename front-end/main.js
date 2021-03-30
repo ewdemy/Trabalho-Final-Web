@@ -32,3 +32,28 @@ function abrirConteudo(event, idItem){
     event.target.classList.add("ativo")
     
 }
+
+function teste(){
+    var txt = document.getElementById("pesquisar-produto").value
+    alert(txt)
+}
+
+
+
+function carregarDataList(event){
+
+    prods = [
+        {id: "sjds", nome: "p1"},
+        {id: "ljlj", nome: "p2"},
+        {id: "kjkj", nome: "p3"},
+        {id: "lçk", nome: "p4"},
+    ]
+
+    var dataList = document.getElementById("produtos")
+
+    for(var prod of prods){
+        console.log(prod.id)
+        dataList.append("<option value='"+prod.id+"'>"+prod.nome+"</option>")
+    }
+
+}

@@ -135,6 +135,27 @@
 
         <section id="entrada" class="conteudo">
             <h1>Entrada</h1>
+
+            <form action="">
+                <div class="input-group barra-pesquisa">
+                    <label for="pesquisar-produto">Produto:</label>
+                    <div>
+                        <input type="search" name="pesquisar-produto" id="pesquisar-produto" placeholder="Selecione ou pesquise um produto" class="input" list="produtos">
+                        <img src="./img/lupa.png" alt="Imagem lupa" class="lupa">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="quantidade-entrada">Quantidade:</label>
+                    <input type="number" name="quantidade-entrada" id="quantidade-entrada" placeholder="Digite a quantidade" class="input">
+                </div>
+                <div class="input-group">
+                    <button id="btn-salvar-entrada" type="submit" onclick="carregarDataList(event)">Adicionar</button>
+                </div>
+
+                <datalist id="produtos">
+                  <option value="ankns"></option>
+                </datalist>
+            </form>
         </section>
 
         <section id="saida" class="conteudo">
