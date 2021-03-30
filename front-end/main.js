@@ -33,27 +33,72 @@ function abrirConteudo(event, idItem){
     
 }
 
-function teste(){
-    var txt = document.getElementById("pesquisar-produto").value
-    alert(txt)
-}
 
+function adicionarEstoque(event){
+    event.preventDefault()
 
+    var produto = document.getElementById("produto").value
 
-function carregarDataList(event){
+    if(produto == ""){
+        alert("Preencha o campo produto!")
+    } else{
+        var URL = "http://localhost:3333/estoque/"
 
-    prods = [
-        {id: "sjds", nome: "p1"},
-        {id: "ljlj", nome: "p2"},
-        {id: "kjkj", nome: "p3"},
-        {id: "lçk", nome: "p4"},
-    ]
-
-    var dataList = document.getElementById("produtos")
-
-    for(var prod of prods){
-        console.log(prod.id)
-        dataList.append("<option value='"+prod.id+"'>"+prod.nome+"</option>")
+        var prod ={
+            produto: produto
+        }
+    
+        fetch(URL, {
+            method: "POST",
+            body: JSON.stringify(prod),
+            headers: {"Content-Type": "application/json; charset=utf-8"}
+          
+          }).then((response) => response.json()).then((data) =>{
+              alert("Produto salvo com sucesso! ID: " + data._id)
+          }).catch((error) =>{
+              console.log(error)
+          })
+    
+          document.getElementById("produto").value = ""
     }
 
+ 
+    
 }
+
+
+function addEntrada(event){
+
+    event.preventDefault()
+
+    var entradaProduto = document.getElementById("pesquisar-produto")
+    var entradaQauntidade = document.getElementById("quantidade-entrada")
+
+    if(entradaProduto.value == "" || entradaQauntidade.value == ""){
+        alert("Preencha todos os campos!")
+    } else{
+        alert("ID: " + entradaProduto.value + "QTD: " + entradaQauntidade.value)
+        entradaProduto.value = ""
+        entradaQauntidade.value = ""
+    } 
+}
+
+function carregarDataList(){
+ 
+    var dataList = document.getElementById("produtos")
+    dataList.innerHTML = ""
+
+    fetch("http://localhost:3333/estoque/").then((response) => {
+        return response.json()
+    }).then((data) => {
+
+        for(var prod of data){
+            var opt = document.createElement("option")
+            opt.value = prod._id
+            opt.innerHTML = prod.produto.toUpperCase()
+            dataList.appendChild(opt)
+        }
+    })
+}
+
+carregarDataList()

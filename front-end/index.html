@@ -28,7 +28,7 @@
         <section id="estoque" class="conteudo">
             <h1>Estoque</h1>
 
-            <form action="">
+            <form action="#" method="POST">
                 <div>
                     <input type="hidden" id="produto-id" name="produto-id">
                 </div>
@@ -38,10 +38,10 @@
                     <input type="text" name="produto" id="produto" placeholder="Digite o nome do produto" required>
                 </div>
                 <div>
-                    <input type="hidden" name="qtd-produto" id="qtd-produto" >
+                    <input type="hidden" name="qtd-produto" id="qtd-produto" required>
                 </div>
                 <div class="input-group">
-                    <button id="btn-salvar-estoque" type="submit">Salvar</button>
+                    <button id="btn-salvar-estoque" type="submit" onclick="adicionarEstoque(event)">Salvar</button>
                     <button id="btn-atualizar-estoque">Atualizar</button>
                     <button id="btn-pesquisar-estoque" >Pesquisar</button>
                 </div>
@@ -140,20 +140,19 @@
                 <div class="input-group barra-pesquisa">
                     <label for="pesquisar-produto">Produto:</label>
                     <div>
-                        <input type="search" name="pesquisar-produto" id="pesquisar-produto" placeholder="Selecione ou pesquise um produto" class="input" list="produtos">
+                        <input autocomplete="off" name="pesquisar-produto" id="pesquisar-produto" placeholder="Selecione ou pesquise um produto" class="input" list="produtos" required>
                         <img src="./img/lupa.png" alt="Imagem lupa" class="lupa">
                     </div>
                 </div>
                 <div class="input-group">
                     <label for="quantidade-entrada">Quantidade:</label>
-                    <input type="number" name="quantidade-entrada" id="quantidade-entrada" placeholder="Digite a quantidade" class="input">
+                    <input type="number" name="quantidade-entrada" id="quantidade-entrada" placeholder="Digite a quantidade" class="input" required>
                 </div>
                 <div class="input-group">
-                    <button id="btn-salvar-entrada" type="submit" onclick="carregarDataList(event)">Adicionar</button>
+                    <button id="btn-salvar-entrada" type="submit" onclick="addEntrada(event)">Adicionar</button>
                 </div>
 
                 <datalist id="produtos">
-                  <option value="ankns"></option>
                 </datalist>
             </form>
         </section>

@@ -4,6 +4,7 @@ const mongoose = require("mongoose")
 require("../models/Estoque")
 const Estoque = mongoose.model("estoque")
 
+
 router.get("/", (req, res) => {
     Estoque.find().then((estoque) => {
         res.json(estoque)
