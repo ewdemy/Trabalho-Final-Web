@@ -60,6 +60,7 @@ function adicionarEstoque(event){
           })
     
           document.getElementById("produto").value = ""
+          carregarDataList()
     }
 
  
@@ -83,7 +84,30 @@ function addEntrada(event){
     } 
 }
 
+
+function carregarTabela(produto) {
+    let lista = document.querySelector('#lista-estoque')
+
+
+    let linha = document.createElement('tr')
+
+    linha.innerHTML = `
+    <td hidden>${produto._id}</td>
+    <td>${produto.produto}</td>
+    <td class="cel-qtd">${produto.quantidade}</td>
+    <td><img class="icon-atualizar atualizar" src="./img/edit.svg" alt="ícone atualizar"></td>
+    <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
+    `
+
+    lista.appendChild(linha)
+  }
+
+
+
 function carregarDataList(){
+    let lista = document.querySelector('#lista-estoque')
+
+    lista.innerHTML = ""
  
     var dataList = document.getElementById("produtos")
     dataList.innerHTML = ""
@@ -93,6 +117,7 @@ function carregarDataList(){
     }).then((data) => {
 
         for(var prod of data){
+            carregarTabela(prod)
             var opt = document.createElement("option")
             opt.value = prod._id
             opt.innerHTML = prod.produto.toUpperCase()
@@ -102,3 +127,95 @@ function carregarDataList(){
 }
 
 carregarDataList()
+
+
+function deleteAtualiza(e) {
+    let linhaSelecionada = e.target.parentElement.parentElement
+    let id = linhaSelecionada.cells[0].innerHTML
+    let produto = linhaSelecionada.cells[1].innerHTML
+    var URL = "http://localhost:3333/estoque/"
+    if(e.target.classList.contains('excluir')) {
+        if (confirm('Tem certeza que deseja excluir esse registro?')){
+
+            var URL = "http://localhost:3333/estoque/"
+
+            fetch(URL+id, {
+                method: "DELETE",
+                headers: {"Content-Type": "application/json; charset=utf-8"}
+              }).then((response) => {
+                  return response.ok
+                }).then((res) =>{
+                  if(res){
+                    alert("Removido com sucesso!")
+                    carregarDataList()
+                  }
+              }).catch((error) =>{
+                  console.log(error)
+              })   
+        }
+    }
+
+    if(e.target.classList.contains('atualizar')) {
+
+        var produtoInput = document.getElementById("produto")
+        produtoInput.value = produto
+        var btnSalvarEstoque = document.getElementById("btn-salvar-estoque")
+        var btnAtualizarEstoque = document.getElementById("btn-atualizar-estoque")
+
+        btnSalvarEstoque.style.display = "none"
+        btnAtualizarEstoque.style.display = "inline"
+
+        btnAtualizarEstoque.addEventListener("click", (event) =>{
+            event.preventDefault()
+            produtoAtualizado = produtoInput.value
+
+            if(produtoAtualizado == ""){
+                alert("Preencha o campo produto!")
+            }else{
+                if (confirm('Tem certeza que deseja alterar esse registro?')){
+
+                    fetch(URL+id, {
+                        method: "PUT",
+                        body: JSON.stringify({produto: produtoAtualizado}),
+                        headers: {"Content-Type": "application/json; charset=utf-8"}
+                      }).then((response) => {
+                          return response.ok
+                        }).then((res) =>{
+                          if(res){
+                            alert("Atualizado com sucesso!") 
+                            carregarDataList()
+                          } else{alert("Erro ao atualizar estoque!") }
+                      }).catch((error) =>{
+                          console.log(error)
+                      })
+    
+                    btnAtualizarEstoque.style.display = "none"
+                    btnSalvarEstoque.style.display = "inline"   
+                }
+            }
+    
+         })
+    }
+  }
+
+  function pesquisarProduto(event){
+      event.preventDefault()
+      var produtoInput = document.getElementById("produto").value
+      let lista = document.querySelector('#lista-estoque')
+      console.log(produtoInput)
+
+      if(produtoInput == ""){
+        alert("Preencha o campo produto!")
+        } else{
+            fetch("http://localhost:3333/estoque/buscar/"+produtoInput).then((response) => {
+                return response.json()
+            }).then((data) => {
+                console.log(data)
+                lista.innerHTML = ""
+                for(var prod of data){
+                    carregarTabela(prod)
+                }
+                document.getElementById("produto").value = ""
+            }).catch((error) =>{console.log(error)})
+        }
+  }

@@ -25,6 +25,8 @@
         <a href="#" class="item-menu" onclick="abrirConteudo(event,'saida')">Saída</a>
     </nav>
     <main id="container">
+
+
         <section id="estoque" class="conteudo">
             <h1>Estoque</h1>
 
@@ -43,7 +45,7 @@
                 <div class="input-group">
                     <button id="btn-salvar-estoque" type="submit" onclick="adicionarEstoque(event)">Salvar</button>
                     <button id="btn-atualizar-estoque">Atualizar</button>
-                    <button id="btn-pesquisar-estoque" >Pesquisar</button>
+                    <button id="btn-pesquisar-estoque" onclick="pesquisarProduto(event)" >Pesquisar</button>
                 </div>
             </form>
 
@@ -57,86 +59,19 @@
                         <th ></th>
                     </tr>
                 </thead>
-                <tbody id="lista-estoque">
-                    <tr>
-                        <td hidden>605f8a487960db27d898f023</td>
-                        <td>Resma 500 Fls</td>
-                        <td class="cel-qtd">10</td>
-                        <td><img class="icon-atualizar atualizar" src="./img/edit.svg" alt="ícone atualizar"></td>
-                        <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
-                    </tr>
-                    <tr>
-                        <td hidden>605f8a487960db27d898f023</td>
-                        <td>Resma 500 Fls</td>
-                        <td class="cel-qtd">10</td>
-                        <td><img class="icon-atualizar atualizar" src="./img/edit.svg" alt="ícone atualizar"></td>
-                        <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
-                    </tr>
-                    <tr>
-                        <td hidden>605f8a487960db27d898f023</td>
-                        <td>Resma 500 Fls</td>
-                        <td class="cel-qtd">10</td>
-                        <td><img class="icon-atualizar atualizar" src="./img/edit.svg" alt="ícone atualizar"></td>
-                        <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
-                    </tr>
-                    <tr>
-                        <td hidden>605f8a487960db27d898f023</td>
-                        <td>Resma 500 Fls</td>
-                        <td class="cel-qtd">10</td>
-                        <td><img class="icon-atualizar atualizar" src="./img/edit.svg" alt="ícone atualizar"></td>
-                        <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
-                    </tr>
-                    <tr>
-                        <td hidden>605f8a487960db27d898f023</td>
-                        <td>Resma 500 Fls</td>
-                        <td class="cel-qtd">10</td>
-                        <td><img class="icon-atualizar atualizar" src="./img/edit.svg" alt="ícone atualizar"></td>
-                        <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
-                    </tr>
-                    <tr>
-                        <td hidden>605f8a487960db27d898f023</td>
-                        <td>Resma 500 Fls</td>
-                        <td class="cel-qtd">10</td>
-                        <td><img class="icon-atualizar atualizar" src="./img/edit.svg" alt="ícone atualizar"></td>
-                        <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
-                    </tr>
-                    <tr>
-                        <td hidden>605f8a487960db27d898f023</td>
-                        <td>Resma 500 Fls</td>
-                        <td class="cel-qtd">10</td>
-                        <td><img class="icon-atualizar atualizar" src="./img/edit.svg" alt="ícone atualizar"></td>
-                        <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
-                    </tr>
-                    <tr>
-                        <td hidden>605f8a487960db27d898f023</td>
-                        <td>Resma 500 Fls</td>
-                        <td class="cel-qtd">10</td>
-                        <td><img class="icon-atualizar atualizar" src="./img/edit.svg" alt="ícone atualizar"></td>
-                        <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
-                    </tr>
-                    <tr>
-                        <td hidden>605f8a487960db27d898f023</td>
-                        <td>Resma 500 Fls</td>
-                        <td class="cel-qtd">10</td>
-                        <td><img class="icon-atualizar atualizar" src="./img/edit.svg" alt="ícone atualizar"></td>
-                        <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
-                    </tr>
-                    <tr>
-                        <td hidden>605f8a487960db27d898f023</td>
-                        <td>Resma 500 Fls</td>
-                        <td class="cel-qtd">10</td>
-                        <td><img class="icon-atualizar atualizar" src="./img/edit.svg" alt="ícone atualizar"></td>
-                        <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
-                    </tr>
+                <tbody id="lista-estoque" onclick="deleteAtualiza(event)">
+                    
                 </tbody>
             </table>
 
         </section>
 
+
+
         <section id="entrada" class="conteudo">
             <h1>Entrada</h1>
 
-            <form action="">
+            <form action="#">
                 <div class="input-group barra-pesquisa">
                     <label for="pesquisar-produto">Produto:</label>
                     <div>
