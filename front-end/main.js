@@ -1,3 +1,9 @@
+
+//URLs
+const URLEstoque = "https://tb-final-web-estoque-api.herokuapp.com/estoque/"
+const URLEntradas = "https://tb-final-web-estoque-api.herokuapp.com/entradas/"
+const URLSaidas = "https://tb-final-web-estoque-api.herokuapp.com/saidas/"
+
 //Configuração Menus
 
 function abrirMenu(){
@@ -57,7 +63,7 @@ function carregarDataList(){
     var dataList = document.getElementById("produtos")
     dataList.innerHTML = ""
 
-    fetch("http://localhost:3333/estoque/").then((response) => {
+    fetch(URLEstoque).then((response) => {
         return response.json()
     }).then((data) => {
 
@@ -93,26 +99,26 @@ function adicionarEstoque(event){
     if(produto == ""){
         alert("Preencha o campo produto!")
     } else{
-        var URL = "http://localhost:3333/estoque/"
 
         var prod ={
             produto: produto
         }
     
-        fetch(URL, {
+        fetch(URLEstoque, {
             method: "POST",
             body: JSON.stringify(prod),
             headers: {"Content-Type": "application/json; charset=utf-8"}
           
           }).then((response) => response.json()).then((data) =>{
               alert("Produto salvo com sucesso! ID: " + data._id)
+              carregarDataList()
           }).catch((error) =>{
             alert("Erro ao salvar estoque!")
               console.log(error)
           })
     
           document.getElementById("produto").value = ""
-          carregarDataList()
+          
     }
     
 }
@@ -135,13 +141,12 @@ function carregarTabela(produto) {
   function deleteAtualiza(e) {
     let linhaSelecionada = e.target.parentElement.parentElement
 
-    var URL = "http://localhost:3333/estoque/"
     if(e.target.classList.contains('excluir')) {
         let id = linhaSelecionada.cells[0].innerHTML
       
         if (confirm('Tem certeza que deseja excluir esse registro?')){
 
-            fetch(URL+id, {
+            fetch(URLEstoque+id, {
                 method: "DELETE",
                 headers: {"Content-Type": "application/json; charset=utf-8"}
               }).then((response) => {
@@ -179,7 +184,7 @@ function carregarTabela(produto) {
             }else{
                 if (confirm('Tem certeza que deseja alterar esse registro?')){
 
-                    fetch(URL+id, {
+                    fetch(URLEstoque+id, {
                         method: "PUT",
                         body: JSON.stringify({produto: produtoAtualizado}),
                         headers: {"Content-Type": "application/json; charset=utf-8"}
@@ -214,7 +219,7 @@ function carregarTabela(produto) {
     if(produtoInput == ""){
       alert("Preencha o campo produto!")
       } else{
-          fetch("http://localhost:3333/estoque/buscar/"+produtoInput).then((response) => {
+          fetch(URLEstoque+"buscar/"+produtoInput).then((response) => {
               return response.json()
           }).then((data) => {
               lista.innerHTML = ""
@@ -262,14 +267,12 @@ function addEntrada(event){
     }
     else{
 
-        var URL = "http://localhost:3333/entradas/"
-
         var entrada ={
             produto: entradaProduto.value,
             quantidade: entradaQauntidade.value
         }
     
-        fetch(URL, {
+        fetch(URLEntradas, {
             method: "POST",
             body: JSON.stringify(entrada),
             headers: {"Content-Type": "application/json; charset=utf-8"}
@@ -309,7 +312,7 @@ function carregarTabelaEntradas(entrada) {
 
     lista.innerHTML = ""
 
-    fetch("http://localhost:3333/entradas/").then((response) => {
+    fetch(URLEntradas).then((response) => {
         return response.json()
     }).then((data) => {
 
@@ -322,12 +325,11 @@ function carregarTabelaEntradas(entrada) {
 function deleteEntrada(e) {
     let linhaSelecionada = e.target.parentElement.parentElement
     
-    var URL = "http://localhost:3333/entradas/"
     if(e.target.classList.contains('excluir')) {
         let id = linhaSelecionada.cells[0].innerHTML
         if (confirm('Tem certeza que deseja excluir esse registro?')){
 
-            fetch(URL+id, {
+            fetch(URLEntradas+id, {
                 method: "DELETE",
                 headers: {"Content-Type": "application/json; charset=utf-8"}
               }).then((response) => {
@@ -385,14 +387,12 @@ function addSaida(event){
     }
     else{
 
-        var URL = "http://localhost:3333/saidas/"
-
         var saida ={
             produto: saidaProduto.value,
             quantidade: saidaQuantidade.value
         }
     
-        fetch(URL, {
+        fetch(URLSaidas, {
             method: "POST",
             body: JSON.stringify(saida),
             headers: {"Content-Type": "application/json; charset=utf-8"}
@@ -438,7 +438,7 @@ function carregarTabelaSaidas(saida) {
 
     lista.innerHTML = ""
 
-    fetch("http://localhost:3333/saidas/").then((response) => {
+    fetch(URLSaidas).then((response) => {
         return response.json()
     }).then((data) => {
 
@@ -451,12 +451,11 @@ function carregarTabelaSaidas(saida) {
 function deleteSaida(e) {
     let linhaSelecionada = e.target.parentElement.parentElement
     
-    var URL = "http://localhost:3333/saidas/"
     if(e.target.classList.contains('excluir')) {
         let id = linhaSelecionada.cells[0].innerHTML
         if (confirm('Tem certeza que deseja excluir esse registro?')){
 
-            fetch(URL+id, {
+            fetch(URLSaidas+id, {
                 method: "DELETE",
                 headers: {"Content-Type": "application/json; charset=utf-8"}
               }).then((response) => {
