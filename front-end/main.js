@@ -74,14 +74,52 @@ function addEntrada(event){
 
     var entradaProduto = document.getElementById("pesquisar-produto")
     var entradaQauntidade = document.getElementById("quantidade-entrada")
+    var listaData = document.getElementById("produtos")
+
+    var present = false
+
+    for(opt of listaData.options){
+        if(opt.value == entradaProduto.value){
+            present = true
+        }
+    }
 
     if(entradaProduto.value == "" || entradaQauntidade.value == ""){
         alert("Preencha todos os campos!")
-    } else{
-        alert("ID: " + entradaProduto.value + "QTD: " + entradaQauntidade.value)
+    } else if(!present){
+        alert("Selecione um produto da lista!")
         entradaProduto.value = ""
         entradaQauntidade.value = ""
-    } 
+    }
+    else{
+
+        var URL = "http://localhost:3333/entradas/"
+
+        var entrada ={
+            produto: entradaProduto.value,
+            quantidade: entradaQauntidade.value
+        }
+    
+        fetch(URL, {
+            method: "POST",
+            body: JSON.stringify(entrada),
+            headers: {"Content-Type": "application/json; charset=utf-8"}
+          
+          }).then((response) => response.json()).then((data) =>{
+              alert("Entrada salva com sucesso! ID: " + data._id)
+              carregarDataList()
+          }).catch((error) =>{
+              console.log(error)
+          })
+    
+
+            entradaProduto.value = ""
+            entradaQauntidade.value = ""
+    }
+
+
+        
+    
 }
 
 
@@ -183,6 +221,7 @@ function deleteAtualiza(e) {
                         }).then((res) =>{
                           if(res){
                             alert("Atualizado com sucesso!") 
+                            produtoInput.value = ""
                             carregarDataList()
                           } else{alert("Erro ao atualizar estoque!") }
                       }).catch((error) =>{
