@@ -107,6 +107,7 @@ function adicionarEstoque(event){
           }).then((response) => response.json()).then((data) =>{
               alert("Produto salvo com sucesso! ID: " + data._id)
           }).catch((error) =>{
+            alert("Erro ao salvar estoque!")
               console.log(error)
           })
     
@@ -151,6 +152,7 @@ function carregarTabela(produto) {
                     carregarDataList()
                   }
               }).catch((error) =>{
+                alert("Erro ao excluir estoque!")
                   console.log(error)
               })   
         }
@@ -190,6 +192,7 @@ function carregarTabela(produto) {
                             carregarDataList()
                           } else{alert("Erro ao atualizar estoque!") }
                       }).catch((error) =>{
+                        alert("Erro ao atualizar estoque!")
                           console.log(error)
                       })
     
@@ -219,7 +222,10 @@ function carregarTabela(produto) {
                   carregarTabela(prod)
               }
               document.getElementById("produto").value = ""
-          }).catch((error) =>{console.log(error)})
+          }).catch((error) =>{
+            alert("Erro ao pesquisar estoque!")
+              console.log(error)
+            })
       }
 }
 
@@ -273,6 +279,7 @@ function addEntrada(event){
               loadEntradas()
               carregarDataList()
           }).catch((error) =>{
+            alert("Erro ao salvar entrada!")
               console.log(error)
           })
     
@@ -337,6 +344,7 @@ function deleteEntrada(e) {
                       alert(res.message)
                   }
               }).catch((error) =>{
+                alert("Erro ao excluir entrada!")
                   console.log(error)
               })   
         }
@@ -401,6 +409,7 @@ function addSaida(event){
               loadSaidas()
               carregarDataList()
           }).catch((error) =>{
+            alert("Erro ao salvar saída!")
               console.log(error)
           })
     

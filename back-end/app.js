@@ -28,8 +28,11 @@ app.use((req, res, next) => {
 const PORT = 3333
 
 //config mongoose
+
+
+
 mongoose.Promise = global.Promise
-mongoose.connect("mongodb://localhost/dbestoque", {useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect("mongodb+srv://convidado:convidado123@cluster0.3xdis.mongodb.net/dbestoque?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log("Conectado ao mongoDB com sucesso!")
 }).catch((err) => {
     console.log("Erro: " + err)
