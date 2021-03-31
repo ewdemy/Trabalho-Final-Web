@@ -67,7 +67,6 @@
         </section>
 
 
-
         <section id="entrada" class="conteudo">
             <h1>Entrada</h1>
 
@@ -81,7 +80,7 @@
                 </div>
                 <div class="input-group">
                     <label for="quantidade-entrada">Quantidade:</label>
-                    <input type="number" name="quantidade-entrada" id="quantidade-entrada" placeholder="Digite a quantidade" class="input" required>
+                    <input type="number" name="quantidade-entrada" id="quantidade-entrada" placeholder="Digite a quantidade" class="input">
                 </div>
                 <div class="input-group">
                     <button id="btn-salvar-entrada" type="submit" onclick="addEntrada(event)">Adicionar</button>
@@ -90,10 +89,61 @@
                 <datalist id="produtos">
                 </datalist>
             </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th hidden>Código</th>
+                        <th>Produto</th>
+                        <th class="cel-qtd">Quantidade</th>
+                        <th class="cel-qtd">Data</th>
+                        <th ></th>
+                    </tr>
+                </thead>
+                <tbody id="lista-entradas" onclick="deleteEntrada(event)">
+                    
+                </tbody>
+            </table>
+
+
         </section>
 
         <section id="saida" class="conteudo">
             <h1>Saida</h1>
+
+            <form action="#">
+                <div class="input-group barra-pesquisa">
+                    <label for="pesquisar-produto-saida">Produto:</label>
+                    <div>
+                        <input autocomplete="off" name="pesquisar-produto" id="pesquisar-produto-saida" placeholder="Selecione o Id do produto ou pesquise por nome" class="input" list="produtos" required>
+                        <img src="./img/lupa.png" alt="Imagem lupa" class="lupa">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="quantidade-saida">Quantidade:</label>
+                    <input type="number" name="quantidade-saida" id="quantidade-saida" placeholder="Digite a quantidade" class="input" required min="0" max="999999">
+                </div>
+                <div class="input-group">
+                    <button id="btn-salvar-saida" type="submit" onclick="addSaida(event)">Adicionar</button>
+                </div>
+                <!-- <datalist id="produtos">
+                </datalist> -->
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th hidden>Código</th>
+                        <th>Produto</th>
+                        <th class="cel-qtd">Quantidade</th>
+                        <th class="cel-qtd">Data</th>
+                        <th ></th>
+                    </tr>
+                </thead>
+                <tbody id="lista-saidas" onclick="deleteSaida(event)">
+                    
+                </tbody>
+            </table>
         </section>
 
     </main>

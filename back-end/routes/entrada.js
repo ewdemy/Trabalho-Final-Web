@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
     const novaEntrada = {
         produto: req.body.produto,
-        quantidade: req.body.quantidade
+        quantidade: Number(req.body.quantidade)
     }
   
     Estoque.findOne({ _id: req.body.produto }).then((estoque) => {
