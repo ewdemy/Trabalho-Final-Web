@@ -1,5 +1,4 @@
 //Configuração Menus
-document.getElementById("item-estoque").click()
 
 function abrirMenu(){
     document.getElementById("menu").style.width = "250px"
@@ -72,8 +71,14 @@ function carregarDataList(){
     })
 }
 
-carregarDataList()
-loadEntradas()
+
+function main(){
+    document.getElementById("item-estoque").click()
+    carregarDataList()
+    loadEntradas()
+    loadSaidas()
+}
+
 
 // Utils --------------------------
 
@@ -307,21 +312,6 @@ function carregarTabelaEntradas(entrada) {
     })
 }
 
-function loadEntradas(){
-    let lista = document.querySelector('#lista-entradas')
-
-    lista.innerHTML = ""
-
-    fetch("http://localhost:3333/entradas/").then((response) => {
-        return response.json()
-    }).then((data) => {
-
-        for(var entrada of data){
-            carregarTabelaEntradas(entrada)
-        }
-    })
-}
-
 function deleteEntrada(e) {
     let linhaSelecionada = e.target.parentElement.parentElement
     
@@ -355,3 +345,128 @@ function deleteEntrada(e) {
   }
 
 //entrada ---------------------------
+
+
+//Saida
+
+function addSaida(event){
+
+    event.preventDefault()
+
+    var saidaProduto = document.getElementById("pesquisar-produto-saida")
+    var saidaQuantidade = document.getElementById("quantidade-saida")
+    var listaData = document.getElementById("produtos")
+
+    var present = false
+
+    for(opt of listaData.options){
+        if(opt.value == saidaProduto.value){
+            present = true
+        }
+    }
+
+    if(saidaProduto.value == "" || saidaQuantidade.value == ""){
+        alert("Preencha todos os campos!")
+    } else if(!present){
+        alert("Selecione um produto da lista!")
+        saidaProduto.value = ""
+        saidaQuantidade.value = ""
+    }else if(!(saidaQuantidade.value > 0 && saidaQuantidade.value < 999999)){
+        alert("Digite uma quantidade válida entre 0 e 999999!")
+        saidaQuantidade.value = ""
+    }
+    else{
+
+        var URL = "http://localhost:3333/saidas/"
+
+        var saida ={
+            produto: saidaProduto.value,
+            quantidade: saidaQuantidade.value
+        }
+    
+        fetch(URL, {
+            method: "POST",
+            body: JSON.stringify(saida),
+            headers: {"Content-Type": "application/json; charset=utf-8"}
+          }).then((response) => {
+                return response.json()
+            }).then((data) => {
+                var msg = data.message
+                console.log(msg)
+                if(!msg){
+                    alert("Saída salva com sucesso! ID: " + data._id)
+                }else{
+                    alert(msg)
+                }
+              loadSaidas()
+              carregarDataList()
+          }).catch((error) =>{
+              console.log(error)
+          })
+    
+            saidaProduto.value = ""
+            saidaQuantidade.value = ""
+    }
+}
+
+function carregarTabelaSaidas(saida) {
+    let lista = document.querySelector('#lista-saidas')
+
+    let linha = document.createElement('tr')
+
+    linha.innerHTML = `
+    <td hidden>${saida._id}</td>
+    <td>${saida.produto.produto}</td>
+    <td class="cel-qtd">${saida.quantidade}</td>
+    <td class="cel-qtd">${formatarData(saida.data)}</td>
+    <td><img class="icon-excluir excluir" src="./img/trash.svg" alt="ícone excluir"></td>
+    `
+    lista.appendChild(linha)
+  }
+
+    function loadSaidas(){
+    let lista = document.querySelector('#lista-saidas')
+
+    lista.innerHTML = ""
+
+    fetch("http://localhost:3333/saidas/").then((response) => {
+        return response.json()
+    }).then((data) => {
+
+        for(var saida of data){
+            carregarTabelaSaidas(saida)
+        }
+    })
+}
+
+function deleteSaida(e) {
+    let linhaSelecionada = e.target.parentElement.parentElement
+    
+    var URL = "http://localhost:3333/saidas/"
+    if(e.target.classList.contains('excluir')) {
+        let id = linhaSelecionada.cells[0].innerHTML
+        if (confirm('Tem certeza que deseja excluir esse registro?')){
+
+            fetch(URL+id, {
+                method: "DELETE",
+                headers: {"Content-Type": "application/json; charset=utf-8"}
+              }).then((response) => {
+                        return response.ok
+                }).then((res) =>{
+                  if(res === true){
+                    alert("Removido com sucesso!")
+                    loadSaidas()
+                    carregarDataList()
+                  }
+              }).catch((error) =>{
+                  alert("Erro ao excluir saída")
+                  console.log(error)
+              })   
+        }
+    }
+
+  }
+
+//saida ---------------------------
+
+main()
